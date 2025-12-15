@@ -1,0 +1,17 @@
+# Angular
+/node_modules
+/dist
+/.angular
+/.vscode
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment
+src/environments/environment*.ts
+
+# OS
+.DS_Store
+Thumbs.db
