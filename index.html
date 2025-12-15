@@ -1,13 +1,484 @@
-<html lang ="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <h1>CS 499 ePortfolio</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis ratione ducimus eos, odit enim eum consequatur tempore distinctio libero voluptatibus ex numquam natus nobis, est quam modi quasi eligendi assumenda?</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis magni perferendis deserunt, qui sunt eos corporis soluta sequi laborum minus, quam sed quis ut asperiores corrupti delectus fugit? Debitis, ex.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore porro deleniti delectus. Tempore accusamus itaque error sunt odio cupiditate cumque quo, eaque nulla, nesciunt hic rerum deserunt dignissimos aliquam natus.</p>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brooklynn Seller | CS-499 ePortfolio</title>
+  <meta name="description" content="CS-499 Professional ePortfolio: self-assessment, code review/refinement plan, artifacts, enhancement narratives, and outcome alignment." />
+
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.04);
+      --text: #e7eefc;
+      --muted: rgba(231,238,252,0.72);
+      --border: rgba(255,255,255,0.12);
+      --link: #8ab4ff;
+      --accent: #4f8cff;
+      --max: 1100px;
+      --radius: 14px;
+      --shadow: 0 14px 40px rgba(0,0,0,0.35);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 15% 0%, rgba(79,140,255,0.22), transparent 55%),
+        radial-gradient(900px 500px at 90% 12%, rgba(99,102,241,0.16), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a{ color: var(--link); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .container{
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11,18,32,0.70);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: .9rem;
+      min-width: 240px;
+    }
+
+    .mark{
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(79,140,255,0.95), rgba(99,102,241,0.75));
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .brand h1{
+      font-size: 1.05rem;
+      margin:0;
+      line-height:1.2;
+    }
+
+    .brand p{
+      margin:.15rem 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    nav{
+      display:flex;
+      gap: .9rem;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+
+    nav a{
+      padding: .45rem .7rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+    }
+
+    nav a:hover{
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border);
+      text-decoration:none;
+    }
+
+    main{ padding: 2.2rem 0 2.8rem; }
+
+    .hero{
+      background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.6rem;
+    }
+
+    .hero h2{
+      margin:0 0 .5rem;
+      font-size: 1.55rem;
+      letter-spacing: .2px;
+    }
+
+    .hero p{ margin: .5rem 0 0; color: var(--muted); }
+
+    .grid{
+      display:grid;
+      gap: 1rem;
+    }
+
+    .grid.two{
+      grid-template-columns: 1fr 1fr;
+      margin-top: 1rem;
+    }
+
+    .card{
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .toc h3{ margin: 0 0 .6rem; }
+    .toc ul{ margin: .2rem 0 0; padding-left: 1.15rem; }
+    .toc li{ margin: .35rem 0; }
+    .toc small{ color: var(--muted); }
+
+    section{
+      margin-top: 1.25rem;
+      background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: var(--shadow);
+    }
+
+    section h2{
+      margin:0 0 .5rem;
+      font-size: 1.35rem;
+    }
+
+    .subhead{
+      margin: .25rem 0 1rem;
+      color: var(--muted);
+    }
+
+    h3{
+      margin: 1.1rem 0 .35rem;
+      font-size: 1.05rem;
+    }
+
+    .muted{ color: var(--muted); }
+
+    .pill-row{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top: .8rem; }
+    .pill{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      padding: .35rem .65rem;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .artifact{
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.14);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .artifact .cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: .6rem;
+    }
+
+    .artifact h4{
+      margin: 0 0 .25rem;
+      font-size: 1rem;
+    }
+
+    .btn-row{
+      display:flex;
+      gap: .6rem;
+      flex-wrap: wrap;
+      margin-top: .6rem;
+    }
+
+    .btn{
+      display:inline-block;
+      padding: .55rem .8rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .btn:hover{
+      text-decoration:none;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .btn.primary{
+      border-color: rgba(79,140,255,0.65);
+      background: rgba(79,140,255,0.20);
+    }
+
+    footer{
+      margin-top: 2.2rem;
+      padding: 1.4rem 0 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align:center;
+    }
+
+    @media (max-width: 900px){
+      .grid.two{ grid-template-columns: 1fr; }
+      .artifact .cols{ grid-template-columns: 1fr; }
+      nav{ justify-content:flex-start; }
+      .header-inner{ flex-direction: column; align-items:flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">BS</div>
+      <div>
+        <h1>Brooklynn Seller — CS-499 ePortfolio</h1>
+        <p>Secure Full-Stack Development • SNHU Computer Science</p>
+      </div>
+    </div>
+
+    <nav aria-label="Primary">
+      <a href="#welcome">Welcome</a>
+      <a href="#toc">Contents</a>
+      <a href="#self">Self-Assessment</a>
+      <a href="#refinement">Refinement</a>
+      <a href="#sde">SDE</a>
+      <a href="#ads">Algorithms</a>
+      <a href="#db">Databases</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <div id="welcome" class="hero">
+    <h2>Welcome</h2>
+    <p>
+      This ePortfolio integrates the knowledge and skills developed throughout my Computer Science program at
+      Southern New Hampshire University (SNHU). It presents original and enhanced artifacts, along with the narratives
+      that explain my enhancement decisions, the technical skills demonstrated, and alignment to CS-499 course outcomes.
+    </p>
+
+    <div class="pill-row" aria-label="Portfolio highlights">
+      <span class="pill">Focus: secure engineering</span>
+      <span class="pill">Full-stack implementation</span>
+      <span class="pill">Data-driven UI & MongoDB</span>
+      <span class="pill">Clear reviewer navigation</span>
+    </div>
+
+    <div class="grid two">
+      <div class="card toc" id="toc">
+        <h3>Table of Contents</h3>
+        <ul>
+          <li><a href="#self">Professional Self-Assessment</a>
+            <ul>
+              <li><a href="#considerations">Portfolio Considerations</a></li>
+              <li><a href="#future">Preparing for the Future</a></li>
+            </ul>
+          </li>
+          <li><a href="#refinement">Refinement Plan and Code Review</a></li>
+          <li><a href="#sde">Software Design and Engineering</a></li>
+          <li><a href="#ads">Algorithms and Data Structures</a></li>
+          <li><a href="#db">Databases</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+        </ul>
+        <p class="muted"><small>All artifacts link directly to their folders in this repository.</small></p>
+      </div>
+
+      <div class="card">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="./InventoryAppOriginal/">InventoryAppOriginal (Original)</a></li>
+          <li><a href="./BrookeSellerInventoryApp/">BrookeSellerInventoryApp (Enhanced)</a></li>
+          <li><a href="./aac-mean/">aac-mean (Enhanced)</a></li>
+          <li><a href="./aacOriginalProject/">aacOriginalProject (Original support)</a></li>
+        </ul>
+        <p class="muted"><small>Tip: include a README.md in each folder so reviewers immediately see run steps and what changed.</small></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFESSIONAL SELF-ASSESSMENT -->
+  <section id="self">
+    <h2>Professional Self-Assessment</h2>
+    <p class="subhead">
+      A holistic introduction to my skills, supported by evidence from the artifacts and enhancements presented below.
+    </p>
+
+    <p>
+      Across my SNHU Computer Science coursework, I developed practical experience designing, implementing, and improving
+      software systems with an emphasis on security, maintainability, and user-centered design. This ePortfolio demonstrates
+      my ability to evaluate existing code, identify risks and inefficiencies, and deliver improvements that are measurable,
+      defensible, and aligned to program outcomes.
+    </p>
+
+    <p>
+      My selected specialization is <strong>secure full-stack development</strong>. The included artifacts showcase end-to-end
+      work across UI components, backend services, and database operations, with a consistent focus on safe data handling,
+      clear structure, and professional presentation suitable for technical stakeholders.
+    </p>
+
+    <h3 id="considerations">Portfolio Considerations</h3>
+    <p>
+      This portfolio is organized for reviewers to quickly locate the original state of each artifact, the enhanced version,
+      and the narrative describing what changed and why. Each enhancement is categorized to reflect CS-499 requirements:
+      Software Design & Engineering, Algorithms & Data Structures, and Databases.
+    </p>
+
+    <h3 id="future">Preparing for the Future</h3>
+    <p>
+      These enhancements represent the same process used in professional environments: assessing an existing system,
+      planning improvements, implementing changes, and documenting outcomes. The portfolio artifacts demonstrate readiness
+      to contribute to full-stack teams by delivering maintainable code, secure patterns, and data-driven features that meet user needs.
+    </p>
+  </section>
+
+  <!-- REFINEMENT PLAN + CODE REVIEW -->
+  <section id="refinement">
+    <h2>Refinement Plan and Code Review</h2>
+    <p class="subhead">
+      Pre-enhancement evaluation of functionality, risks, and planned improvements aligned to CS-499 outcomes.
+    </p>
+
+    <p>
+      Prior to implementing enhancements, I evaluated each artifact for maintainability, security posture, and data handling quality.
+      The planned changes focused on improving structure and readability, strengthening validation and safe data handling practices,
+      and ensuring the final implementation could be reviewed efficiently through clear documentation and navigation.
+    </p>
+
+    <h3>Code Review Video</h3>
+    <p>
+      A recorded code review video is not currently included. However, the analysis and planned enhancements typically covered
+      in an informal code review are documented throughout the enhancement narratives in each section below, including
+      existing functionality, target areas for improvement, and the rationale for each enhancement decision.
+    </p>
+  </section>
+
+  <!-- SOFTWARE DESIGN & ENGINEERING -->
+  <section id="sde">
+    <h2>Software Design and Engineering</h2>
+    <p class="subhead">
+      Artifact and narrative demonstrating improvements to design, structure, maintainability, and professional presentation.
+    </p>
+
+    <div class="artifact">
+      <h3>Artifact — Inventory Application</h3>
+      <p class="muted">
+        Original vs enhanced versions are provided to demonstrate the change set and supporting evidence.
+      </p>
+
+      <div class="cols">
+        <div>
+          <h4>Original</h4>
+          <p class="muted">InventoryAppOriginal</p>
+          <div class="btn-row">
+            <a class="btn" href="./InventoryAppOriginal/">Open Folder</a>
+          </div>
+        </div>
+        <div>
+          <h4>Enhanced (Enhancement One)</h4>
+          <p class="muted">BrookeSellerInventoryApp</p>
+          <div class="btn-row">
+            <a class="btn primary" href="./BrookeSellerInventoryApp/">Open Folder</a>
+          </div>
+        </div>
+      </div>
+
+      <h3>Enhancement Narrative (Summary)</h3>
+      <p>
+        This enhancement focused on improving the application’s structure and maintainability by strengthening organization,
+        reducing fragile implementation choices, and aligning the implementation with secure development expectations for user input
+        and application behavior. The enhanced version provides clearer separation of concerns, improved readability, and a more
+        defensible foundation for future features.
+      </p>
+    </div>
+  </section>
+
+  <!-- ALGORITHMS & DATA STRUCTURES -->
+  <section id="ads">
+    <h2>Algorithms and Data Structures</h2>
+    <p class="subhead">
+      Artifact and narrative demonstrating improved logic, structured data handling, and efficient filtering/processing.
+    </p>
+
+    <div class="artifact">
+      <h3>Artifact — Animal Outcomes Dashboard</h3>
+      <p class="muted">aac-mean (Enhancement Two and Three)</p>
+      <div class="btn-row">
+        <a class="btn primary" href="./aac-mean/">Open Folder</a>
+        <a class="btn" href="./aacOriginalProject/">Original Support (aacOriginalProject)</a>
+      </div>
+
+      <h3>Enhancement Narrative (Algorithms & Data Structures)</h3>
+      <p>
+        This enhancement emphasized structured data handling and improved processing logic for a large dataset, including
+        cleaner filtering behavior and more maintainable client-side logic to support user interaction. The result is an application
+        that better supports performance, readability, and predictable behavior while presenting results through a clear UI workflow.
+      </p>
+    </div>
+  </section>
+
+  <!-- DATABASES -->
+  <section id="db">
+    <h2>Databases</h2>
+    <p class="subhead">
+      Artifact and narrative demonstrating database integration, query design, and data-driven application features.
+    </p>
+
+    <div class="artifact">
+      <h3>Artifact — Database-Driven Application</h3>
+      <p class="muted">aac-mean</p>
+      <div class="btn-row">
+        <a class="btn primary" href="./aac-mean/">Open Folder</a>
+      </div>
+
+      <h3>Enhancement Narrative (Databases)</h3>
+      <p>
+        This enhancement focused on strengthening database-backed functionality through consistent API-to-database interactions,
+        query-driven filtering, and safe handling of application data. The improved implementation demonstrates practical database
+        integration and supports a user-facing experience that is driven by data operations rather than static content.
+      </p>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <h2>Reviews</h2>
+    <p class="subhead">Optional section for feedback and iteration notes.</p>
+    <p class="muted">
+      This section can be used to include instructor feedback, peer review notes, or a brief summary of testing and validation steps.
+      If you do not have reviews to include, it is acceptable to leave this section as a placeholder.
+    </p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Brooklynn Seller • Hosted on GitHub Pages
+  </footer>
+
+</main>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
 </html>
