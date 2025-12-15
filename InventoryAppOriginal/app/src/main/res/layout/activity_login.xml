@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/cream"
+    android:padding="16dp">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="26dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo_content_desc"
+        android:scaleType="fitCenter"
+        android:src="@drawable/inventory_logo" />
+
+    <!-- Username -->
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="@string/username_hint"
+        android:inputType="textPersonName|textEmailAddress"
+        android:autofillHints="username"
+        android:textColor="@color/brown"
+        android:textColorHint="@color/brown" />
+
+    <!-- Password with toggle -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/brown"
+        app:hintTextColor="@color/brown"
+        app:boxStrokeColor="@color/brown">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:inputType="textPassword|textNoSuggestions"
+            android:autofillHints="password"
+            android:importantForAutofill="yes"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textColor="@color/brown"
+            android:textColorHint="@color/brown" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Length error -->
+    <TextView
+        android:id="@+id/length_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/error_password_length"
+        android:textColor="@color/brown"
+        android:paddingTop="4dp"
+        android:visibility="gone" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp">
+
+        <!-- Create Login Button -->
+        <Button
+            android:id="@+id/buttonCreateLogin"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/create_login"
+            android:backgroundTint="@color/brown"
+            android:textColor="@color/cream" />
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="wrap_content" />
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/buttonLogin"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/login"
+            android:backgroundTint="@color/brown"
+            android:textColor="@color/cream" />
+
+    </LinearLayout>
+
+</LinearLayout>
