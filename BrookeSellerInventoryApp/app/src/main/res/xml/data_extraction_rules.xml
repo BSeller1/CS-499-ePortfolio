@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Sample data extraction rules file; uncomment and customize as necessary.
+   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
+   for details.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- TODO: Use <include> and <exclude> to control what is backed up. -->
+        <!-- Only back up the inventory database -->
+        <include domain="database" path="inventory.db"/>
+
+        <!-- Shared preferences (except auth session) -->
+        <include domain="sharedpref" path="."/>
+        <exclude domain="sharedpref" path="auth_session.xml"/>
+
+        <!-- App files (not cache / no_backup) -->
+        <include domain="file" path="."/>
+        <exclude domain="file" path="cache/"/>
+        <exclude domain="file" path="no_backup/"/>
+    </cloud-backup>
+
+</data-extraction-rules>

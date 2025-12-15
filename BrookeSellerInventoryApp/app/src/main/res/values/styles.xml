@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Theme overlay for Toolbar -->
+    <style name="ToolbarPopupOverlay" parent="ThemeOverlay.Material3">
+        <item name="popupMenuStyle">@style/PopupMenuBrownOnCream</item>
+    </style>
+
+    <!-- App/activity theme -->
+    <style name="AppBaseTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/cream</item>
+        <item name="popupMenuStyle">@style/PopupMenuBrownOnCream</item>
+        <item name="colorSurface">@color/cream</item>
+        <item name="colorOnSurface">@color/brown</item>
+    </style>
+
+    <!-- Concrete popup style -->
+    <style name="PopupMenuBrownOnCream" parent="Widget.Material3.PopupMenu">
+        <item name="android:popupBackground">@color/cream</item>
+        <item name="itemTextColor">@color/brown</item>
+        <item name="itemIconTint">@color/brown</item>
+    </style>
+
+    <style name="FloatingActionButtonStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/FabShape</item>
+    </style>
+
+    <style name="FabShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+    </style>
+
+</resources>

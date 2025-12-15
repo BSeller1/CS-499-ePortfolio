@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App theme (DAY/DEFAULT) -->
+    <style name="Theme.BrookeSellerInventoryApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Your palette -->
+        <item name="colorPrimary">@color/brown</item>
+        <item name="colorOnPrimary">@color/cream</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status / Nav bar (day) -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
+    </style>
+</resources>
