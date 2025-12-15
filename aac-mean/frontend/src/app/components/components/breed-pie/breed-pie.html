@@ -1,0 +1,88 @@
+<div class="chart-wrapper">
+    <h2>Breed Distribution</h2>
+
+    <!-- Tabs: Top 10 | All -->
+    <div class="tabs" style="display:flex; gap:10px; margin: 10px 0 16px;">
+        <button type="button" (click)="setTab('top10')" [class.active]="activeTab === 'top10'">
+            Top 10
+        </button>
+
+        <button type="button" (click)="setTab('all')" [class.active]="activeTab === 'all'">
+            All Breeds
+        </button>
+    </div>
+
+    <!-- TOP 10 TAB -->
+    <div *ngIf="activeTab === 'top10'">
+
+        <h3>Top 10 Breeds</h3>
+
+        <!-- Chart type toggle -->
+        <div style="margin-bottom: 12px;">
+            <label style="margin-right: 16px;">
+                <input type="radio" name="topView" [checked]="topView === 'bar'" (change)="topView = 'bar'" />
+                Bar Chart
+            </label>
+
+            <label>
+                <input type="radio" name="topView" [checked]="topView === 'pie'" (change)="topView = 'pie'" />
+                Pie Chart
+            </label>
+        </div>
+
+        <div *ngIf="top10Loading">Loading Top 10 chart...</div>
+
+        <div *ngIf="!top10Loading && top10Error" class="status error">{{ top10Error }}</div>
+
+        <div *ngIf="!top10Loading && !top10Error" style="max-width: 800px;">
+            <div *ngIf="topView === 'bar'">
+                <canvas baseChart [type]="'bar'" [data]="barData" [options]="barOptions">
+                </canvas>
+            </div>
+
+            <div *ngIf="topView === 'pie'">
+                <canvas baseChart [type]="'pie'" [data]="pieData" [options]="pieOptions">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALL BREEDS TAB -->
+    <div *ngIf="activeTab === 'all'">
+
+        <h3>All Breeds (Sortable Table)</h3>
+
+        <input type="text" placeholder="Filter breeds..." (input)="onFilterChange($any($event.target).value)"
+            style="margin-bottom: 10px; padding: 6px;" />
+
+        <div *ngIf="allLoading">Loading all breeds...</div>
+
+        <div *ngIf="!allLoading && allError" class="status error">{{ allError }}</div>
+
+        <div *ngIf="!allLoading && !allError" style="max-height: 420px; overflow: auto;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th (click)="toggleSort('breed')" style="cursor:pointer;">
+                            Breed
+                        </th>
+                        <th (click)="toggleSort('count')" style="cursor:pointer;">
+                            Count
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let row of visibleRows">
+                        <td>{{ row.breed }}</td>
+                        <td>{{ row.count }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-footer" style="margin-top: 8px;">
+            Showing {{ visibleRows.length }} of {{ allRows.length }} breeds
+        </div>
+    </div>
+</div>

@@ -1,0 +1,315 @@
+<div class="dashboard-container">
+  <div class="title-container">
+    <h1>CS-340 Dashboard – Brooklynn Seller</h1>
+    <img src="assets/logo.png" alt="Logo" class="dashboard-logo">
+  </div>
+
+  <!-- ===================== -->
+  <!-- Rescue Type Filters -->
+  <!-- ===================== -->
+  <fieldset class="filters" role="radiogroup" aria-label="Rescue Type">
+    <legend class="filters-label">Filter by Rescue Type:</legend>
+
+    <label>
+      <input type="radio" name="rescue" value="All" [checked]="rescueType === 'All'"
+        (change)="onRescueTypeChange('All')">
+      Reset
+    </label>
+
+    <label>
+      <input type="radio" name="rescue" value="water_rescue" [checked]="rescueType === 'water_rescue'"
+        (change)="onRescueTypeChange('water_rescue')">
+      Water Rescue
+    </label>
+
+    <label>
+      <input type="radio" name="rescue" value="mountain_wilderness_rescue"
+        [checked]="rescueType === 'mountain_wilderness_rescue'"
+        (change)="onRescueTypeChange('mountain_wilderness_rescue')">
+      Mountain or Wilderness Rescue
+    </label>
+
+    <label>
+      <input type="radio" name="rescue" value="disaster_individual_tracking"
+        [checked]="rescueType === 'disaster_individual_tracking'"
+        (change)="onRescueTypeChange('disaster_individual_tracking')">
+      Disaster or Individual Tracking Rescue
+    </label>
+  </fieldset>
+
+  <hr />
+
+  <!-- ===================== -->
+  <!-- AAC DATA TABLE -->
+  <!-- ===================== -->
+  <h2>AAC Dashboard Data Table</h2>
+
+  <div *ngIf="loading" class="status">Loading AAC records...</div>
+  <div *ngIf="error" class="status error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error && animals.length === 0" class="status">
+    No records returned from the API. Confirm your backend is running and /api/animals returns data.
+  </div>
+
+  <ng-container *ngIf="!loading && !error && animals.length > 0">
+
+    <ng-container *ngIf="filteredAnimals.length > 0; else noFiltered">
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <!-- Column Headers -->
+            <tr>
+              <th>#</th>
+              <th>age_upon_outcome</th>
+              <th>animal_id</th>
+              <th>animal_type</th>
+              <th>breed</th>
+              <th>color</th>
+              <th>date_of_birth</th>
+              <th>datetime</th>
+              <th>outcome_subtype</th>
+              <th>outcome_type</th>
+              <th>sex_upon_outcome</th>
+              <th>age_upon_outcome_in_weeks</th>
+              <th>location_lat</th>
+              <th>location_long</th>
+            </tr>
+
+            <!-- Filter Inputs Row -->
+            <tr class="filter-row">
+              <th></th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('age_upon_outcome', $event.target.value)"
+                  [value]="columnFilters.age_upon_outcome">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('animal_id', $event.target.value)" [value]="columnFilters.animal_id">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('animal_type', $event.target.value)"
+                  [value]="columnFilters.animal_type">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('breed', $event.target.value)" [value]="columnFilters.breed">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('color', $event.target.value)" [value]="columnFilters.color">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('date_of_birth', $event.target.value)"
+                  [value]="columnFilters.date_of_birth">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('datetime', $event.target.value)" [value]="columnFilters.datetime">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('outcome_subtype', $event.target.value)"
+                  [value]="columnFilters.outcome_subtype">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('outcome_type', $event.target.value)"
+                  [value]="columnFilters.outcome_type">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('sex_upon_outcome', $event.target.value)"
+                  [value]="columnFilters.sex_upon_outcome">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('age_upon_outcome_in_weeks', $event.target.value)"
+                  [value]="columnFilters.age_upon_outcome_in_weeks">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('location_lat', $event.target.value)"
+                  [value]="columnFilters.location_lat">
+              </th>
+
+              <th>
+                <input class="col-filter" type="text" placeholder="Filter"
+                  (input)="onColumnFilterChange('location_long', $event.target.value)"
+                  [value]="columnFilters.location_long">
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let a of pagedAnimals; let i = index" (click)="selectAnimal(a)"
+              [class.selected]="selectedAnimalId === a?.animal_id" style="cursor:pointer;">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{ a.age_upon_outcome }}</td>
+              <td>{{ a.animal_id }}</td>
+              <td>{{ a.animal_type }}</td>
+              <td>{{ a.breed }}</td>
+              <td>{{ a.color }}</td>
+              <td>{{ a.date_of_birth }}</td>
+              <td>{{ a.datetime }}</td>
+              <td>{{ a.outcome_subtype }}</td>
+              <td>{{ a.outcome_type }}</td>
+              <td>{{ a.sex_upon_outcome }}</td>
+              <td>{{ a.age_upon_outcome_in_weeks }}</td>
+              <td>{{ a.location_lat }}</td>
+              <td>{{ a.location_long }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINATION CONTROLS -->
+      <div class="pagination" style="margin-top: 10px;">
+        <button (click)="setPage(1)" [disabled]="currentPage === 1">«</button>
+        <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">‹ Prev</button>
+
+        <span style="margin: 0 10px;">Page {{ currentPage }} of {{ totalPages }}</span>
+
+        <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next ›</button>
+        <button (click)="setPage(totalPages)" [disabled]="currentPage === totalPages">»</button>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="table-footer">
+        <span>
+          Showing {{ pagedAnimals.length }} of {{ filteredAnimals.length }}
+          (from {{ animals.length }} total) records
+        </span>
+      </div>
+
+    </ng-container>
+
+    <ng-template #noFiltered>
+      <div class="status">No animals found for the current column filters.</div>
+    </ng-template>
+
+  </ng-container>
+
+  <hr style="margin: 24px 0;" />
+
+  <!-- ===================== -->
+  <!-- CHARTS + PREDICTOR + MAP -->
+  <!-- ===================== -->
+  <div class="charts-map-grid">
+
+    <!-- Left: Chart -->
+    <div class="charts-column">
+      <app-breed-pie></app-breed-pie>
+    </div>
+
+    <!-- Middle: Predictor -->
+    <div class="predictor-column">
+      <h3>Adoption Likelihood Predictor</h3>
+
+      <div *ngIf="selectedAnimalId" style="font-size:12px;color:#555;">
+        Selected Animal: {{ selectedAnimalId }}
+      </div>
+
+      <div class="prediction-box" style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+
+          <label class="info-label">
+            <span class="label-row">
+              Animal Type
+              <span class="info-icon">ⓘ
+                <span class="tooltip">
+                  Species of the animal (e.g., Dog or Cat). Different species have different adoption trends.
+                </span>
+              </span>
+            </span>
+            <input class="col-filter" type="text" [(ngModel)]="predictForm.animal_type">
+          </label>
+
+          <label class="info-label">
+            <span class="label-row">
+              Sex Upon Outcome
+              <span class="info-icon">ⓘ
+                <span class="tooltip">
+                  Reproductive status at outcome time. Neutered or spayed animals are typically adopted faster.
+                </span>
+              </span>
+            </span>
+            <input class="col-filter" type="text" [(ngModel)]="predictForm.sex_upon_outcome">
+          </label>
+
+          <label class="info-label" style="grid-column:1 / -1;">
+            <span class="label-row">
+              Breed (primary_breed)
+              <span class="info-icon">ⓘ
+                <span class="tooltip">
+                  Primary breed classification used by the prediction model.
+                </span>
+              </span>
+            </span>
+            <input class="col-filter" type="text" [(ngModel)]="predictForm.primary_breed">
+          </label>
+
+          <label class="info-label">
+            <span class="label-row">
+              Weeks (age_weeks)
+              <span class="info-icon">ⓘ
+                <span class="tooltip">
+                  Age of the animal in weeks at the time of outcome.
+                </span>
+              </span>
+            </span>
+            <input class="col-filter" type="number" [(ngModel)]="predictForm.age_weeks" min="0">
+          </label>
+
+          <label class="info-label">
+            <span class="label-row">
+              Month (1–12)
+              <span class="info-icon">ⓘ
+                <span class="tooltip">
+                  Calendar month of the outcome (1 = January, 12 = December). Captures seasonal adoption trends.
+                </span>
+              </span>
+            </span>
+            <input class="col-filter" type="number" [(ngModel)]="predictForm.outcome_month" min="1" max="12">
+          </label>
+
+        </div>
+
+        <button style="margin-top:10px;" (click)="submitPrediction()" [disabled]="predictionLoading">
+          {{ predictionLoading ? 'Predicting...' : 'Predict' }}
+        </button>
+      </div>
+
+      <div *ngIf="predictionError" class="status error" style="margin-top:8px;">
+        {{ predictionError }}
+      </div>
+
+      <div *ngIf="adoptionProbability !== null" style="font-size:12px;color:#555;margin-top:8px;">
+        Adoption Likelihood: {{ adoptionProbability * 100 | number:'1.0-0' }}%
+      </div>
+    </div>
+
+    <!-- Right: Map -->
+    <div class="map-column">
+      <h3>Animal Location</h3>
+      <app-map-view [lat]="selectedLat" [lng]="selectedLng"></app-map-view>
+    </div>
+
+  </div>
+</div>
